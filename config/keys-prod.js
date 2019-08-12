@@ -1,5 +1,5 @@
 
 module.exports = {
-    mongoURI: PROCCESS.ENV.MONGO,
+    mongoURI: process.env.MONGO,
     secretOrKey: 'abc123'
 };
