@@ -14,6 +14,7 @@ import Login from './components/auth/Login';
 import Home from './components/Home';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import EditPost from './components/post/EditPost';
 import './App.css';
 const middleware = [thunk];
 const store = createStore(rootReducer,{},compose(applyMiddleware(...middleware),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
@@ -44,6 +45,9 @@ class App extends Component {
 
                         <Switch>
                             <PrivateRoute exact path="/post/:id" component={Post} />
+                        </Switch>
+                        <Switch>
+                            <PrivateRoute exact path="/editPost/:id" component={EditPost} />
                         </Switch>
 
                     </div>

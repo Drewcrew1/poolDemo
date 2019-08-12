@@ -32,12 +32,45 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req,res) => {
 
 
     const newPost =  new Post({
-        text: req.body.text,
+        title: req.body.title,
+        body: req.body.body,
         name: req.body.name,
         user: req.user.id
     });
+    if(req.body.tags) newPost.tags = req.body.tags;
     newPost.save().then((post) => {
         res.json(post);
+    });
+});
+//@route get api/posts/editposts/:id
+//@access Public
+router.get('/editPost/:id',(req,res) => {
+    Post.findById(req.params.id).then((post) => {
+        res.json(post);
+    }).catch((err) => {
+        res.status(404).json({nopost: 'no post found'});
+    });
+});
+//@route post api/posts/editpost/:id
+//@access Private
+router.post(`/editPost/:id`, passport.authenticate('jwt', {session: false}), (req,res) => {
+    let errors = {};
+    let newPost = {};
+if(req.body.title) newPost.title = req.body.title;
+    if(req.body.body) newPost.body = req.body.body;
+    if(req.body.tags) newPost.tags = req.body.tags;
+
+    Post.findOneAndUpdate({
+        _id: req.params.id
+    },{
+        $set: newPost
+    },{
+        new: true
+    }).then((post) => {
+        console.log('post back',post);
+        res.json(post);
+    }).catch((err) => {
+        console.log(err);
     });
 });
 //@route delete api/posts/:id

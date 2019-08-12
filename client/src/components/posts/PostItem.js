@@ -29,16 +29,13 @@ class PostItem extends React.Component{
             <div className="card card-body mb-3">
                 <div className="row">
                     <div className="col-md-2">
-                        <a href="profile.html">
-                            <img className="rounded-circle d-none d-md-block"
-                                 src={post.avatar}
-                                 alt=""/>
-                        </a>
-                        <br/>
                         <p className="text-center">{post.name}</p>
                     </div>
                     <div className="col-md-10">
-                        <p className="lead">{post.text}</p>
+                        <p className="lead">{post.title}</p>
+                        <p>{post.body}</p>
+                        <small>Tags - {post.tags}</small>
+                        <hr/>
                         {showActions ? (<span>
                              <button onClick={() => this.onLikeClick(post._id)} type="button" className="btn btn-light mr-1">
                             <i className={classnames('fas fa-thumbs-up', {
@@ -53,9 +50,14 @@ class PostItem extends React.Component{
                             Comments
                         </Link>
                             {post.user === auth.user.id ? (
+                                <div>
                                 <button type='button' onClick={() => this.onDelete(post._id)} className='btn btn-danger mr-1'>
                                     <i className='fas fa-times'/>
                                 </button>
+                                <Link to={`/editPost/${post._id}`} className='btn btn-light mr-1'>
+                                    Edit
+                                </Link>
+                                </div>
                             ) : null}
                         </span>) : null}
 

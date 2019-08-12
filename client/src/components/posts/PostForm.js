@@ -7,7 +7,9 @@ class PostForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            text: '',
+            title: '',
+            body: '',
+            tags: null,
             errors: {}
         };
     }
@@ -20,9 +22,13 @@ class PostForm extends React.Component{
         e.preventDefault();
         const {user } = this.props.auth;
         const newPost = {
-            text: this.state.text,
+            title: this.state.title,
+            body: this.state.body,
             name: user.name
         };
+        if(this.state.tags !== null){
+            newPost.tags = this.state.tags;
+        }
         this.props.addPost(newPost);
         this.setState({text: ''});
     }
@@ -41,9 +47,23 @@ class PostForm extends React.Component{
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <TextAreaFieldGroup
-                                    placeholder='Create a Post'
-                                    name='text'
-                                    value={this.state.text}
+                                    placeholder='Create a Post Title'
+                                    name='title'
+                                    value={this.state.title}
+                                    onChange={this.onChange}
+                                    error={errors.text}
+                                />
+                                <TextAreaFieldGroup
+                                    placeholder='Create a Post Body'
+                                    name='body'
+                                    value={this.state.body}
+                                    onChange={this.onChange}
+                                    error={errors.text}
+                                />
+                                <TextAreaFieldGroup
+                                    placeholder='Add a tag(optional)'
+                                    name='tags'
+                                    value={this.state.tags}
                                     onChange={this.onChange}
                                     error={errors.text}
                                 />
