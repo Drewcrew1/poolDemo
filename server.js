@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys-prod').mongoURI;
 
 mongoose.connect(db,{useNewUrlParser: true}).then(() => {
     console.log('mongo connected');

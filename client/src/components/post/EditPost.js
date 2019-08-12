@@ -46,9 +46,6 @@ class EditPost extends React.Component{
             id: this.props.match.params.id
         };
         this.props.editPost(Data);
-        // axios.post(`api/posts/editPost/${id}`,Data).then((res) => {
-        //     console.log(res);
-        // }).catch((err) => console.log(err));
     };
 
     render(){
